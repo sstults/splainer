@@ -1,0 +1,166 @@
+Git change processing log - Thu Nov  6 05:43:28 PM UTC 2025
+================================
+[2025-11-06 17:43:28] Starting incremental git change processing
+[2025-11-06 17:43:29] Total changes to process: 63
+[2025-11-06 17:43:29] Starting batch 1
+[2025-11-06 17:43:29] Processing batch of 10 changes starting from index 0
+[2025-11-06 17:43:31] Processing 10 changes in this batch
+[2025-11-06 17:43:31] Processing change 1/10:  D app/.buildignore
+[2025-11-06 17:43:31]   Deleting file: app/.buildignore
+[2025-11-06 17:43:31] Processing change 2/10:  D app/.htaccess
+[2025-11-06 17:43:31]   Deleting file: app/.htaccess
+[2025-11-06 17:43:31] Processing change 3/10:  D app/404.html
+[2025-11-06 17:43:31]   Deleting file: app/404.html
+[2025-11-06 17:43:31] Processing change 4/10:  D app/docs/search_controls.png
+[2025-11-06 17:43:31]   Deleting file: app/docs/search_controls.png
+[2025-11-06 17:43:31] Processing change 5/10:  D app/docs/search_results.png
+[2025-11-06 17:43:31]   Deleting file: app/docs/search_results.png
+[2025-11-06 17:43:31] Processing change 6/10:  D app/docs/start_url.png
+[2025-11-06 17:43:31]   Deleting file: app/docs/start_url.png
+[2025-11-06 17:43:31] Processing change 7/10:  D app/favicon.ico
+[2025-11-06 17:43:31]   Deleting file: app/favicon.ico
+[2025-11-06 17:43:31] Processing change 8/10:  D app/help.html
+[2025-11-06 17:43:31]   Deleting file: app/help.html
+[2025-11-06 17:43:31] Processing change 9/10:  D app/images/OSC-logomark-color-sm.png
+[2025-11-06 17:43:31]   Deleting file: app/images/OSC-logomark-color-sm.png
+[2025-11-06 17:43:31] Processing change 10/10:  D app/images/ajax-loader.gif
+[2025-11-06 17:43:31]   Deleting file: app/images/ajax-loader.gif
+[2025-11-06 17:43:31] Completed batch processing
+[2025-11-06 17:43:32] Remaining changes: 53
+[2025-11-06 17:43:32] Starting batch 2
+[2025-11-06 17:43:32] Processing batch of 10 changes starting from index 10
+[2025-11-06 17:43:33] Processing 10 changes in this batch
+[2025-11-06 17:43:33] Processing change 1/10:  D app/images/doug.jpg
+[2025-11-06 17:43:33]   Deleting file: app/images/doug.jpg
+[2025-11-06 17:43:33] Processing change 2/10:  D app/images/eric.jpg
+[2025-11-06 17:43:33]   Deleting file: app/images/eric.jpg
+[2025-11-06 17:43:33] Processing change 3/10:  D app/images/matt.jpg
+[2025-11-06 17:43:33]   Deleting file: app/images/matt.jpg
+[2025-11-06 17:43:33] Processing change 4/10:  D app/index.html
+[2025-11-06 17:43:33]   Deleting file: app/index.html
+[2025-11-06 17:43:33] Processing change 5/10:  D app/robots.txt
+[2025-11-06 17:43:33]   Deleting file: app/robots.txt
+[2025-11-06 17:43:33] Processing change 6/10:  D app/scripts/ace-config.js
+[2025-11-06 17:43:33]   Deleting file: app/scripts/ace-config.js
+[2025-11-06 17:43:33] Processing change 7/10:  D app/scripts/app.js
+[2025-11-06 17:43:33]   Deleting file: app/scripts/app.js
+[2025-11-06 17:43:33] Processing change 8/10:  D app/scripts/controllers/customHeaders.js
+[2025-11-06 17:43:33]   Deleting file: app/scripts/controllers/customHeaders.js
+[2025-11-06 17:43:33] Processing change 9/10:  D app/scripts/controllers/detailedDoc.js
+[2025-11-06 17:43:33]   Deleting file: app/scripts/controllers/detailedDoc.js
+[2025-11-06 17:43:33] Processing change 10/10:  D app/scripts/controllers/detailedExplain.js
+[2025-11-06 17:43:33]   Deleting file: app/scripts/controllers/detailedExplain.js
+[2025-11-06 17:43:33] Completed batch processing
+[2025-11-06 17:43:34] Remaining changes: 43
+[2025-11-06 17:43:34] Starting batch 3
+[2025-11-06 17:43:34] Processing batch of 10 changes starting from index 20
+[2025-11-06 17:43:34] Processing 10 changes in this batch
+[2025-11-06 17:43:34] Processing change 1/10:  D app/scripts/controllers/docRow.js
+[2025-11-06 17:43:34]   Deleting file: app/scripts/controllers/docRow.js
+[2025-11-06 17:43:34] Processing change 2/10:  D app/scripts/controllers/docSelector.js
+[2025-11-06 17:43:34]   Deleting file: app/scripts/controllers/docSelector.js
+[2025-11-06 17:43:34] Processing change 3/10:  D app/scripts/controllers/helpBox.js
+[2025-11-06 17:43:34]   Deleting file: app/scripts/controllers/helpBox.js
+[2025-11-06 17:43:34] Processing change 4/10:  D app/scripts/controllers/searchResults.js
+[2025-11-06 17:43:34]   Deleting file: app/scripts/controllers/searchResults.js
+[2025-11-06 17:43:34] Processing change 5/10:  D app/scripts/controllers/settings.js
+[2025-11-06 17:43:34]   Deleting file: app/scripts/controllers/settings.js
+[2025-11-06 17:43:34] Processing change 6/10:  D app/scripts/controllers/solrSettingsWarning.js
+[2025-11-06 17:43:34]   Deleting file: app/scripts/controllers/solrSettingsWarning.js
+[2025-11-06 17:43:34] Processing change 7/10:  D app/scripts/controllers/startUrl.js
+[2025-11-06 17:43:34]   Deleting file: app/scripts/controllers/startUrl.js
+[2025-11-06 17:43:34] Processing change 8/10:  D app/scripts/directives/customHeaders.js
+[2025-11-06 17:43:34]   Deleting file: app/scripts/directives/customHeaders.js
+[2025-11-06 17:43:34] Processing change 9/10:  D app/scripts/directives/dispatchOnClick.js
+[2025-11-06 17:43:34]   Deleting file: app/scripts/directives/dispatchOnClick.js
+[2025-11-06 17:43:34] Processing change 10/10:  D app/scripts/directives/docRow.js
+[2025-11-06 17:43:34]   Deleting file: app/scripts/directives/docRow.js
+[2025-11-06 17:43:34] Completed batch processing
+[2025-11-06 17:43:35] Remaining changes: 33
+[2025-11-06 17:43:35] Starting batch 4
+[2025-11-06 17:43:35] Processing batch of 10 changes starting from index 30
+[2025-11-06 17:43:36] Processing 10 changes in this batch
+[2025-11-06 17:43:36] Processing change 1/10:  D app/scripts/directives/docSelector.js
+[2025-11-06 17:43:36]   Deleting file: app/scripts/directives/docSelector.js
+[2025-11-06 17:43:36] Processing change 2/10:  D app/scripts/directives/stackedChart.js
+[2025-11-06 17:43:36]   Deleting file: app/scripts/directives/stackedChart.js
+[2025-11-06 17:43:36] Processing change 3/10:  D app/scripts/factories/Search.js
+[2025-11-06 17:43:36]   Deleting file: app/scripts/factories/Search.js
+[2025-11-06 17:43:36] Processing change 4/10:  D app/scripts/panes.js
+[2025-11-06 17:43:36]   Deleting file: app/scripts/panes.js
+[2025-11-06 17:43:36] Processing change 5/10:  D app/scripts/services/esSettingsSvc.js
+[2025-11-06 17:43:36]   Deleting file: app/scripts/services/esSettingsSvc.js
+[2025-11-06 17:43:36] Processing change 6/10:  D app/scripts/services/osSettingsSvc.js
+[2025-11-06 17:43:36]   Deleting file: app/scripts/services/osSettingsSvc.js
+[2025-11-06 17:43:36] Processing change 7/10:  D app/scripts/services/settingsStoreSvc.js
+[2025-11-06 17:43:36]   Deleting file: app/scripts/services/settingsStoreSvc.js
+[2025-11-06 17:43:36] Processing change 8/10:  D app/scripts/services/solrSettingsSvc.js
+[2025-11-06 17:43:36]   Deleting file: app/scripts/services/solrSettingsSvc.js
+[2025-11-06 17:43:36] Processing change 9/10:  D app/scripts/services/splSearchSvc.js
+[2025-11-06 17:43:36]   Deleting file: app/scripts/services/splSearchSvc.js
+[2025-11-06 17:43:36] Processing change 10/10:  D app/styles/main.css
+[2025-11-06 17:43:36]   Deleting file: app/styles/main.css
+[2025-11-06 17:43:36] Completed batch processing
+[2025-11-06 17:43:37] Remaining changes: 23
+[2025-11-06 17:43:37] Starting batch 5
+[2025-11-06 17:43:37] Processing batch of 10 changes starting from index 40
+[2025-11-06 17:43:37] Processing 10 changes in this batch
+[2025-11-06 17:43:37] Processing change 1/10:  D app/styles/panes.css
+[2025-11-06 17:43:37]   Deleting file: app/styles/panes.css
+[2025-11-06 17:43:37] Processing change 2/10:  D app/styles/stackedChart.css
+[2025-11-06 17:43:37]   Deleting file: app/styles/stackedChart.css
+[2025-11-06 17:43:37] Processing change 3/10:  D app/views/customHeaders.html
+[2025-11-06 17:43:37]   Deleting file: app/views/customHeaders.html
+[2025-11-06 17:43:37] Processing change 4/10:  D app/views/detailedDoc.html
+[2025-11-06 17:43:37]   Deleting file: app/views/detailedDoc.html
+[2025-11-06 17:43:37] Processing change 5/10:  D app/views/detailedExplain.html
+[2025-11-06 17:43:37]   Deleting file: app/views/detailedExplain.html
+[2025-11-06 17:43:37] Processing change 6/10:  D app/views/docRow.html
+[2025-11-06 17:43:37]   Deleting file: app/views/docRow.html
+[2025-11-06 17:43:37] Processing change 7/10:  D app/views/docSelect.html
+[2025-11-06 17:43:37]   Deleting file: app/views/docSelect.html
+[2025-11-06 17:43:37] Processing change 8/10:  D app/views/helpBox.html
+[2025-11-06 17:43:37]   Deleting file: app/views/helpBox.html
+[2025-11-06 17:43:37] Processing change 9/10:  D app/views/searchResults.html
+[2025-11-06 17:43:37]   Deleting file: app/views/searchResults.html
+[2025-11-06 17:43:37] Processing change 10/10:  D app/views/stackedChart.html
+[2025-11-06 17:43:37]   Deleting file: app/views/stackedChart.html
+[2025-11-06 17:43:37] Completed batch processing
+[2025-11-06 17:43:38] Remaining changes: 13
+[2025-11-06 17:43:38] Starting batch 6
+[2025-11-06 17:43:38] Processing batch of 10 changes starting from index 50
+[2025-11-06 17:43:38] Processing 10 changes in this batch
+[2025-11-06 17:43:38] Processing change 1/10:  D app/views/startUrl.html
+[2025-11-06 17:43:38]   Deleting file: app/views/startUrl.html
+[2025-11-06 17:43:38] Processing change 2/10: ?? .cline-memory-bank/
+[2025-11-06 17:43:38]   Unknown status for .cline-memory-bank/: ??
+[2025-11-06 17:43:38] Processing change 3/10: ?? .clinerules/
+[2025-11-06 17:43:38]   Unknown status for .clinerules/: ??
+[2025-11-06 17:43:38] Processing change 4/10: ?? .env.local
+[2025-11-06 17:43:38]   Unknown status for .env.local: ??
+[2025-11-06 17:43:38] Processing change 5/10: ?? .pnpm-store/
+[2025-11-06 17:43:38]   Unknown status for .pnpm-store/: ??
+[2025-11-06 17:43:38] Processing change 6/10: ?? app/package.json
+[2025-11-06 17:43:38]   Unknown status for app/package.json: ??
+[2025-11-06 17:43:38] Processing change 7/10: ?? app/pnpm-lock.yaml
+[2025-11-06 17:43:38]   Unknown status for app/pnpm-lock.yaml: ??
+[2025-11-06 17:43:38] Processing change 8/10: ?? app/src/
+[2025-11-06 17:43:38]   Unknown status for app/src/: ??
+[2025-11-06 17:43:38] Processing change 9/10: ?? app/tsconfig.json
+[2025-11-06 17:43:38]   Unknown status for app/tsconfig.json: ??
+[2025-11-06 17:43:38] Processing change 10/10: ?? app/vite.config.ts
+[2025-11-06 17:43:38]   Unknown status for app/vite.config.ts: ??
+[2025-11-06 17:43:38] Completed batch processing
+[2025-11-06 17:43:40] Remaining changes: 3
+[2025-11-06 17:43:40] Starting batch 7
+[2025-11-06 17:43:40] Processing batch of 10 changes starting from index 60
+[2025-11-06 17:43:40] Processing 3 changes in this batch
+[2025-11-06 17:43:40] Processing change 1/3: ?? legacy/
+[2025-11-06 17:43:40]   Unknown status for legacy/: ??
+[2025-11-06 17:43:40] Processing change 2/3: ?? pnpm-lock.yaml
+[2025-11-06 17:43:40]   Unknown status for pnpm-lock.yaml: ??
+[2025-11-06 17:43:40] Processing change 3/3: ?? scripts/
+[2025-11-06 17:43:40]   Unknown status for scripts/: ??
+[2025-11-06 17:43:40] Completed batch processing
+[2025-11-06 17:43:41] All changes processed successfully
+[2025-11-06 17:43:41] Git change processing completed
