@@ -15,3 +15,6 @@ docker-compose.override.yml
 
 solr-splainer-package/target
 solr-splainer-package/repo/*.jar
+
+.pnpm-store/
+node_modules/
