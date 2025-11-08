@@ -1,33 +1,7 @@
-import { useState, useEffect } from 'react';
-
-// Define TypeScript interfaces
-interface HotMatch {
-  description: string;
-  percentage: number;
-}
-
-interface Document {
-  id: string;
-  score: number;
-  hotMatches?: HotMatch[];
-}
-
-interface SearchState {
-  docs: Document[];
-  numFound: number;
-  maxScore: number;
-  state: number; // NO_SEARCH = 0, DID_SEARCH = 1, IN_ERROR = 3
-  errorMsg: string;
-  engine?: string;
-  linkUrl?: string;
-  queryDetails?: any;
-  parsedQueryDetails?: any;
-  paging?: boolean;
-  moreResults?: boolean;
-}
+import React, { useState, useEffect } from 'react';
 
 const SearchResults = () => {
-  const [searchState, setSearchState] = useState<SearchState>({
+  const [searchState, setSearchState] = useState({
     docs: [],
     numFound: 0,
     maxScore: 0,
@@ -121,8 +95,7 @@ const SearchResults = () => {
 
   // Initialize search
   useEffect(() => {
-    // Don't automatically trigger search on mount
-    // reset();
+    reset();
   }, []);
 
   // Toggle query details
@@ -141,7 +114,7 @@ const SearchResults = () => {
   };
 
   // Render stacked chart component
-  const StackedChart = (props: { hots: HotMatch[], detailed?: () => void }) => {
+  const StackedChart = (props) => {
     const { hots, detailed } = props;
     const maxHotMatches = 3;
     
@@ -208,8 +181,8 @@ const SearchResults = () => {
   };
 
   // Render document row component
-  const DocRow = (props: { doc: Document }) => {
-    const { doc } = props;
+  const DocRow = (props) => {
+    const { doc, maxScore } = props;
     return (
       <div className="doc-row">
         <div className="doc-score-section">
@@ -237,7 +210,7 @@ const SearchResults = () => {
   };
 
   // Render JSON explorer component
-  const JsonExplorer = (props: { jsonData?: any }) => {
+  const JsonExplorer = (props) => {
     const { jsonData } = props;
     if (!jsonData) return null;
     
@@ -321,7 +294,7 @@ const SearchResults = () => {
           <div className="documents">
             {searchState.docs.map((doc) => (
               <div key={doc.id} className="document">
-                <DocRow doc={doc} />
+                <DocRow doc={doc} maxScore={searchState.maxScore} />
                 <hr />
               </div>
             ))}
