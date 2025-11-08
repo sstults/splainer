@@ -1,30 +1,166 @@
 import { useState, useEffect } from 'react';
 
-// Define TypeScript interfaces
+// Define TypeScript interfaces based on legacy AngularJS code
 interface HotMatch {
   description: string;
   percentage: number;
 }
 
-interface Document {
+interface NormalDoc {
   id: string;
   score: number;
   hotMatches?: HotMatch[];
+  // Additional fields would be added based on actual data structure
 }
 
 interface SearchState {
-  docs: Document[];
+  docs: NormalDoc[];
   numFound: number;
   maxScore: number;
-  state: number; // NO_SEARCH = 0, DID_SEARCH = 1, IN_ERROR = 3
+  state: number; // NO_SEARCH = 0, DID_SEARCH = 1, WAITING_FOR_SEARCH = 2, IN_ERROR = 3
   errorMsg: string;
   engine?: string;
   linkUrl?: string;
-  queryDetails?: any;
-  parsedQueryDetails?: any;
+  settings?: any;
   paging?: boolean;
   moreResults?: boolean;
+  grouped?: any;
+  displayedResults?: number;
+  searchArgsStr?: string;
+  fieldSpecStr?: string;
+  searchUrl?: string;
 }
+
+interface SearchSettings {
+  whichEngine: string;
+  searchUrl: string;
+  fieldSpecStr: string;
+  searchArgsStr: string;
+  solr: {
+    customHeaders: string;
+    headerType: string;
+    searchUrl: string;
+    fieldSpecStr: string;
+    searchArgsStr: string;
+    whichEngine: string;
+  };
+  es: {
+    customHeaders: string;
+    headerType: string;
+    searchUrl: string;
+    fieldSpecStr: string;
+    searchArgsStr: string;
+    whichEngine: string;
+  };
+  os: {
+    customHeaders: string;
+    headerType: string;
+    searchUrl: string;
+    fieldSpecStr: string;
+    searchArgsStr: string;
+    whichEngine: string;
+  };
+  searchArgsStrFn: () => string;
+  fieldSpecStrFn: () => string;
+  searchUrlFn: () => string;
+}
+
+interface SearchService {
+  createSearcher: (fieldSpec: any, searchUrl: string, parsedArgs: any, 
+                  otherParam: string, customHeaders: any, engine: string) => any;
+}
+
+// Mock implementations of legacy services
+const mockSearchService: SearchService = {
+  createSearcher: (fieldSpec, searchUrl, parsedArgs, otherParam, customHeaders, engine) => {
+    // Mock searcher implementation
+    return {
+      search: () => Promise.resolve(),
+      pager: () => null,
+      type: engine,
+      numFound: 0,
+      docs: [],
+      grouped: {},
+      linkUrl: searchUrl,
+      inError: false
+    };
+  }
+};
+
+const mockSettingsStore = {
+  settings: {
+    whichEngine: 'solr',
+    searchUrl: '',
+    fieldSpecStr: '',
+    searchArgsStr: '',
+    solr: {
+      customHeaders: '',
+      headerType: 'None',
+      searchUrl: '',
+      fieldSpecStr: '',
+      searchArgsStr: '',
+      whichEngine: 'solr'
+    },
+    es: {
+      customHeaders: '',
+      headerType: 'Custom',
+      searchUrl: '',
+      fieldSpecStr: '',
+      searchArgsStr: '{ "match_all": {} }',
+      whichEngine: 'es'
+    },
+    os: {
+      customHeaders: '',
+      headerType: 'None',
+      searchUrl: '',
+      fieldSpecStr: '',
+      searchArgsStr: '{ "match_all": {} }',
+      whichEngine: 'os'
+    },
+    searchArgsStrFn: () => '',
+    fieldSpecStrFn: () => '',
+    searchUrlFn: () => ''
+  },
+  save: () => {}
+};
+
+const mockSplSearchSvc = {
+  states: {
+    NO_SEARCH: 0,
+    DID_SEARCH: 1,
+    WAITING_FOR_SEARCH: 2,
+    IN_ERROR: 3
+  },
+  engines: {
+    SOLR: 'solr',
+    ELASTICSEARCH: 'es',
+    OPENSEARCH: 'os'
+  },
+  createSearch: (searchSettings: SearchSettings) => {
+    // Mock search instance
+    return {
+      search: () => Promise.resolve(),
+      page: () => Promise.resolve(),
+      reset: () => {},
+      hasGroup: () => false,
+      moreResults: () => false,
+      getOverridingExplain: () => null,
+      state: 0, // NO_SEARCH
+      docs: [],
+      numFound: 0,
+      maxScore: 0,
+      linkUrl: '#',
+      grouped: {},
+      paging: false,
+      errorMsg: '',
+      settings: searchSettings,
+      displayedResults: 0,
+      searchArgsStr: () => searchSettings.searchArgsStr,
+      fieldSpecStr: () => searchSettings.fieldSpecStr,
+      searchUrl: () => searchSettings.searchUrl
+    };
+  }
+};
 
 const SearchResults = () => {
   const [searchState, setSearchState] = useState<SearchState>({
@@ -38,40 +174,31 @@ const SearchResults = () => {
   const [showParsedQueryDetails, setShowParsedQueryDetails] = useState(false);
   const [showQueryDetails, setShowQueryDetails] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const [currSearch, setCurrSearch] = useState<any>(null);
 
-  // Mock data
-  const mockSearchData = {
-    numFound: 3,
-    docs: [
-      { 
-        id: '1', 
-        score: 1.5,
-        hotMatches: [
-          { description: 'Match 1', percentage: 40 },
-          { description: 'Match 2', percentage: 30 },
-          { description: 'Match 3', percentage: 20 }
-        ]
-      },
-      { 
-        id: '2', 
-        score: 1.2,
-        hotMatches: [
-          { description: 'Match 1', percentage: 50 },
-          { description: 'Match 2', percentage: 30 }
-        ]
-      },
-      { 
-        id: '3', 
-        score: 1.0,
-        hotMatches: [
-          { description: 'Match 1', percentage: 60 }
-        ]
-      },
-    ],
-    linkUrl: 'https://solr.example.com/solr/core/select'
+  // Initialize search
+  useEffect(() => {
+    resetSearch();
+  }, []);
+
+  const resetSearch = () => {
+    const searchSettings = mockSettingsStore.settings;
+    const search = mockSplSearchSvc.createSearch(searchSettings);
+    setCurrSearch(search);
+    
+    setSearchState({
+      docs: [],
+      numFound: 0,
+      maxScore: 0,
+      state: 0, // NO_SEARCH
+      errorMsg: '',
+      settings: searchSettings
+    });
+    setShowParsedQueryDetails(false);
+    setShowQueryDetails(false);
+    setShowAll(false);
   };
 
-  // Search function
   const search = async () => {
     setIsLoading(true);
     setShowParsedQueryDetails(false);
@@ -79,22 +206,51 @@ const SearchResults = () => {
     setShowAll(false);
     
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setSearchState({
-        docs: mockSearchData.docs,
-        numFound: mockSearchData.numFound,
-        maxScore: Math.max(...mockSearchData.docs.map(doc => doc.score)),
-        state: 1, // DID_SEARCH
-        errorMsg: '',
-        engine: 'solr',
-        linkUrl: mockSearchData.linkUrl,
-        queryDetails: { test: 'query details' },
-        parsedQueryDetails: { test: 'parsed query details' },
-        paging: false,
-        moreResults: true
-      });
+      // Simulate search execution
+      if (currSearch) {
+        // In a real implementation, this would call the actual search
+        await currSearch.search();
+        
+        // Mock search results
+        const mockResults = {
+          docs: [
+            { 
+              id: '1', 
+              score: 1.5,
+              hotMatches: [
+                { description: 'Match 1', percentage: 40 },
+                { description: 'Match 2', percentage: 30 },
+                { description: 'Match 3', percentage: 20 }
+              ]
+            },
+            { 
+              id: '2', 
+              score: 1.2,
+              hotMatches: [
+                { description: 'Match 1', percentage: 50 },
+                { description: 'Match 2', percentage: 30 }
+              ]
+            },
+            { 
+              id: '3', 
+              score: 1.0,
+              hotMatches: [
+                { description: 'Match 1', percentage: 60 }
+              ]
+            },
+          ],
+          numFound: 3,
+          maxScore: 1.5,
+          state: 1, // DID_SEARCH
+          linkUrl: 'https://solr.example.com/solr/core/select'
+        };
+
+        setSearchState({
+          ...mockResults,
+          settings: mockSettingsStore.settings,
+          errorMsg: ''
+        });
+      }
     } catch (error) {
       setSearchState(prev => ({
         ...prev,
@@ -105,25 +261,6 @@ const SearchResults = () => {
       setIsLoading(false);
     }
   };
-
-  const reset = () => {
-    setSearchState({
-      docs: [],
-      numFound: 0,
-      maxScore: 0,
-      state: 0, // NO_SEARCH
-      errorMsg: ''
-    });
-    setShowParsedQueryDetails(false);
-    setShowQueryDetails(false);
-    setShowAll(false);
-  };
-
-  // Initialize search
-  useEffect(() => {
-    // Don't automatically trigger search on mount
-    // reset();
-  }, []);
 
   // Toggle query details
   const toggleQueryDetails = () => {
@@ -208,7 +345,7 @@ const SearchResults = () => {
   };
 
   // Render document row component
-  const DocRow = (props: { doc: Document }) => {
+  const DocRow = (props: { doc: NormalDoc }) => {
     const { doc } = props;
     return (
       <div className="doc-row">
@@ -303,15 +440,15 @@ const SearchResults = () => {
           </div>
 
           {/* Query details sections */}
-          {showQueryDetails && searchState.queryDetails && (
+          {showQueryDetails && searchState.settings && (
             <div className="query-details">
-              <JsonExplorer jsonData={searchState.queryDetails} />
+              <JsonExplorer jsonData={searchState.settings} />
             </div>
           )}
 
-          {showParsedQueryDetails && searchState.parsedQueryDetails && (
+          {showParsedQueryDetails && searchState.settings && (
             <div className="parsed-query-details">
-              <JsonExplorer jsonData={searchState.parsedQueryDetails} />
+              <JsonExplorer jsonData={searchState.settings} />
             </div>
           )}
 
@@ -348,7 +485,7 @@ const SearchResults = () => {
         <button onClick={search} disabled={isLoading}>
           {isLoading ? 'Searching...' : 'Search'}
         </button>
-        <button onClick={reset}>Reset</button>
+        <button onClick={resetSearch}>Reset</button>
         
         <div className="toggle-buttons">
           <button 
