@@ -16,11 +16,12 @@
     },
     "workspaceFolder": "/work",
     "postCreateCommand": "bash .devcontainer/postCreate.sh",
-    "forwardPorts": [3000, 5173, 8983, 9200],
+    "forwardPorts": [3000, 5173, 8983, 9200, 9000],
     "portsAttributes": {
         "3000": { "label": "App (alt)" },
         "5173": { "label": "Vite dev server" },
         "8983": { "label": "Solr" },
-        "9200": { "label": "Elasticsearch" }
+        "9200": { "label": "Elasticsearch" },
+        "9000": { "label": "Legacy App" }
     }
 }
