@@ -68,6 +68,15 @@ grunt dist
 
 You can test out the static artifacts via `ruby -run -e httpd -- -p 5000 ./dist` and going to http://localhost:5000.
 
+### New React Development
+
+The project now has a new React-based frontend in the `app/` directory. To develop with the new frontend:
+
+```
+cd app
+npm run dev
+```
+
 ### With Docker installed
 
 From the root of the project, you should run:
@@ -104,9 +113,12 @@ https://docs.docker.com/compose/extends/
 
 ### Testing Notes
 
-* Unit tests are written using Karma.
+* Unit tests are written using Karma for legacy AngularJS components.
 
 * The `./tests/splainer_test_links.html` file is a list of links that invoke Splainer, both the local version and the deployed version against Solr and Elasticsearch, and is a great test to make sure the behavior hasn't reverted.  Use this to make sure existing links still work!
+
+* New React components have comprehensive test coverage with Vitest and React Testing Library
+* See CONTRIBUTING.md for detailed testing instructions
 
 ## Who?
 

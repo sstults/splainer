@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import searchService, { SearchService, SearchSettings } from './services/searchService';
+import settingsStoreService, { SettingsStoreService } from './services/settingsStoreService';
 
 // Define TypeScript interfaces based on legacy AngularJS code
 interface HotMatch {
@@ -21,7 +23,7 @@ interface SearchState {
   errorMsg: string;
   engine?: string;
   linkUrl?: string;
-  settings?: any;
+  settings?: SearchSettings;
   paging?: boolean;
   moreResults?: boolean;
   grouped?: any;
@@ -31,136 +33,10 @@ interface SearchState {
   searchUrl?: string;
 }
 
-interface SearchSettings {
-  whichEngine: string;
-  searchUrl: string;
-  fieldSpecStr: string;
-  searchArgsStr: string;
-  solr: {
-    customHeaders: string;
-    headerType: string;
-    searchUrl: string;
-    fieldSpecStr: string;
-    searchArgsStr: string;
-    whichEngine: string;
-  };
-  es: {
-    customHeaders: string;
-    headerType: string;
-    searchUrl: string;
-    fieldSpecStr: string;
-    searchArgsStr: string;
-    whichEngine: string;
-  };
-  os: {
-    customHeaders: string;
-    headerType: string;
-    searchUrl: string;
-    fieldSpecStr: string;
-    searchArgsStr: string;
-    whichEngine: string;
-  };
-  searchArgsStrFn: () => string;
-  fieldSpecStrFn: () => string;
-  searchUrlFn: () => string;
-}
-
-interface SearchService {
-  createSearcher: (fieldSpec: any, searchUrl: string, parsedArgs: any, 
-                  otherParam: string, customHeaders: any, engine: string) => any;
-}
-
-// Mock implementations of legacy services
-const mockSearchService: SearchService = {
-  createSearcher: (fieldSpec, searchUrl, parsedArgs, otherParam, customHeaders, engine) => {
-    // Mock searcher implementation
-    return {
-      search: () => Promise.resolve(),
-      pager: () => null,
-      type: engine,
-      numFound: 0,
-      docs: [],
-      grouped: {},
-      linkUrl: searchUrl,
-      inError: false
-    };
-  }
-};
-
-const mockSettingsStore = {
-  settings: {
-    whichEngine: 'solr',
-    searchUrl: '',
-    fieldSpecStr: '',
-    searchArgsStr: '',
-    solr: {
-      customHeaders: '',
-      headerType: 'None',
-      searchUrl: '',
-      fieldSpecStr: '',
-      searchArgsStr: '',
-      whichEngine: 'solr'
-    },
-    es: {
-      customHeaders: '',
-      headerType: 'Custom',
-      searchUrl: '',
-      fieldSpecStr: '',
-      searchArgsStr: '{ "match_all": {} }',
-      whichEngine: 'es'
-    },
-    os: {
-      customHeaders: '',
-      headerType: 'None',
-      searchUrl: '',
-      fieldSpecStr: '',
-      searchArgsStr: '{ "match_all": {} }',
-      whichEngine: 'os'
-    },
-    searchArgsStrFn: () => '',
-    fieldSpecStrFn: () => '',
-    searchUrlFn: () => ''
-  },
-  save: () => {}
-};
-
-const mockSplSearchSvc = {
-  states: {
-    NO_SEARCH: 0,
-    DID_SEARCH: 1,
-    WAITING_FOR_SEARCH: 2,
-    IN_ERROR: 3
-  },
-  engines: {
-    SOLR: 'solr',
-    ELASTICSEARCH: 'es',
-    OPENSEARCH: 'os'
-  },
-  createSearch: (searchSettings: SearchSettings) => {
-    // Mock search instance
-    return {
-      search: () => Promise.resolve(),
-      page: () => Promise.resolve(),
-      reset: () => {},
-      hasGroup: () => false,
-      moreResults: () => false,
-      getOverridingExplain: () => null,
-      state: 0, // NO_SEARCH
-      docs: [],
-      numFound: 0,
-      maxScore: 0,
-      linkUrl: '#',
-      grouped: {},
-      paging: false,
-      errorMsg: '',
-      settings: searchSettings,
-      displayedResults: 0,
-      searchArgsStr: () => searchSettings.searchArgsStr,
-      fieldSpecStr: () => searchSettings.fieldSpecStr,
-      searchUrl: () => searchSettings.searchUrl
-    };
-  }
-};
+// Actual implementation would use these services
+// const searchService = require('./services/searchService');
+// const settingsStore = require('./services/settingsStore');
+// const splSearchSvc = require('./services/splSearchSvc');
 
 const SearchResults = () => {
   const [searchState, setSearchState] = useState<SearchState>({
@@ -182,8 +58,8 @@ const SearchResults = () => {
   }, []);
 
   const resetSearch = () => {
-    const searchSettings = mockSettingsStore.settings;
-    const search = mockSplSearchSvc.createSearch(searchSettings);
+    const searchSettings = settingsStoreService.settings;
+    const search = searchService.createSearch(searchSettings);
     setCurrSearch(search);
     
     setSearchState({
@@ -206,56 +82,28 @@ const SearchResults = () => {
     setShowAll(false);
     
     try {
-      // Simulate search execution
+      // Call the actual search method from our real implementation
       if (currSearch) {
-        // In a real implementation, this would call the actual search
+        // Call the actual search method
         await currSearch.search();
         
-        // Mock search results
-        const mockResults = {
-          docs: [
-            { 
-              id: '1', 
-              score: 1.5,
-              hotMatches: [
-                { description: 'Match 1', percentage: 40 },
-                { description: 'Match 2', percentage: 30 },
-                { description: 'Match 3', percentage: 20 }
-              ]
-            },
-            { 
-              id: '2', 
-              score: 1.2,
-              hotMatches: [
-                { description: 'Match 1', percentage: 50 },
-                { description: 'Match 2', percentage: 30 }
-              ]
-            },
-            { 
-              id: '3', 
-              score: 1.0,
-              hotMatches: [
-                { description: 'Match 1', percentage: 60 }
-              ]
-            },
-          ],
-          numFound: 3,
-          maxScore: 1.5,
-          state: 1, // DID_SEARCH
-          linkUrl: 'https://solr.example.com/solr/core/select'
-        };
-
-        setSearchState({
-          ...mockResults,
-          settings: mockSettingsStore.settings,
-          errorMsg: ''
-        });
+        // Update state with results from the search
+        setSearchState(prev => ({
+          ...prev,
+          state: currSearch.state,
+          docs: currSearch.docs,
+          numFound: currSearch.numFound,
+          maxScore: currSearch.maxScore,
+          linkUrl: currSearch.linkUrl,
+          errorMsg: currSearch.errorMsg,
+          settings: currSearch.settings
+        }));
       }
     } catch (error) {
       setSearchState(prev => ({
         ...prev,
         state: 3, // IN_ERROR
-        errorMsg: 'Search failed'
+        errorMsg: error instanceof Error ? error.message : 'Search failed'
       }));
     } finally {
       setIsLoading(false);
@@ -421,7 +269,7 @@ const SearchResults = () => {
               )}
             </small>
             
-            {searchState.engine === 'solr' && (
+            {searchState.settings?.whichEngine === 'solr' && (
               <>
                 |
                 <small>
